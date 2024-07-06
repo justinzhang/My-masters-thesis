@@ -81,7 +81,7 @@
 \begin{center}
     \em
     Submitted in partial fulfillment of the requirements \\
-    for the degree of Doctor of Philosophy.
+    for the degree of Masters in Science.
 \end{center}
 
 

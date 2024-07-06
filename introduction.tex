@@ -1,0 +1,18 @@
+Erasure codes are a low storage overhead solution used in large-scale distributed storage systems to apply suitable fault tolerance against node failure \cite{erasureCodingInAzure,googleFileSystem}. 
+The data to be stored is partitioned into $k$ symbol chunks, where each of these chunks are encoded as $n$ symbols (called a codeword) under a $[n,k]$ erasure code and are distributed onto $n$ nodes in the systems.
+Maximum distance separable (MDS) codes are often chosen in this setting since they require the minimum amount of storage overhead and guarantee of data integrity in the face of $(n - k)$ node failures. 
+In other words, any $k$ out of $n$ symbols of a codeword can be used to recover the original data.
+
+The parameters $n,k$ are chosen based on the node failure rate, which may change over time.
+For instance, in periods of high failure rates, $n$ and $k$ may be chosen so that their rate of redundancy $\frac{n}{k}$ is high (at the cost of higher storage overhead), while in periods of low failure rate, $n$ and $k$ may be chosen so that their rate of redundancy is low (at the benefit of lower storage overhead).
+Kadekodi et al. have shown in prior work that failure rate of disks can vary over time, where significant savings can be made in storage costs by tuning $n$ and $k$ in response \cite{Heart}. 
+However, re-tuning $n$ and $k$ under the default method of decoding the data under an initial code and re-encoding the data under a new code is costly in terms of I/O, CPU, and network bandwidth resources. 
+This has led to the study of the \textit{code conversion} problem \cite{maturanaAccessAll,maturanaMergeBandwidth,maturanaAccessMerge,maturanaSplitBandwidth}. Code conversion is the process of transforming data encoded under a $[n^I,k^I]$ initial code $C^I$ and re-encoding the same data under a $[n^F,k^F]$ final code $C^F$. We call an instance of this problem a $[n^I,k^I; n^F, k^F]$ \textit{convertible code}.
+Prior work on convertible codes have extensively studied their theoretical efficiencies under access cost and bandwidth cost, giving both lower bounds and optimal constructions.
+
+However, these systems may be employed by nodes susceptible to malicious intruders, such as passive eavesdroppers or active adversaries, all of whom denigrate the conversion process. 
+For instance, an eavesdropper may be able to learn the underlying data through the messages exchanged by nodes in the conversion process or an adversary may induce errors by sending malicious messages that cause the codeword to be corrupted.
+The setting of an insecure distributed storage system has been well studied for the related node repair problem \cite{pawarSecureDSS}. 
+\textbf{It is unknown whether optimal convertible codes for either access or bandwidth cost exist for insecure data storage systems.}
+In this paper, we bring the conversion problem into this setting, where we formalize the model of conversion in an insecure storage system, derive the maximum capacity of data that can be stored on such systems, and provide access and bandwidth optimal convertible code constructions that are secure in such a system.
+%todo: summarize the flow of the paper.
